@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2847;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0096FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bgGrad)"/>
+  
+  <!-- Accent line -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accentGrad)"/>
+  
+  <!-- Logo circle -->
+  <circle cx="100" cy="200" r="60" fill="url(#accentGrad)" opacity="0.2"/>
+  <circle cx="100" cy="200" r="50" fill="none" stroke="url(#accentGrad)" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Broom icon inside -->
+  <g transform="translate(100, 200)">
+    <line x1="-15" y1="-20" x2="15" y2="20" stroke="#00D9FF" stroke-width="4" stroke-linecap="round"/>
+    <g stroke="#0096FF" stroke-width="3" stroke-linecap="round">
+      <line x1="12" y1="17" x2="18" y2="28"/>
+      <line x1="6" y1="12" x2="8" y2="24"/>
+      <line x1="0" y1="8" x2="0" y2="22"/>
+      <line x1="-6" y1="2" x2="-8" y2="18"/>
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="220" y="120" font-size="64" font-weight="bold" fill="#00D9FF" font-family="Arial, sans-serif">
+    AI Smart Cleaner
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="220" y="180" font-size="28" fill="#B0E0E6" font-family="Arial, sans-serif">
+    PowerShell GUI for Windows Cleanup
+  </text>
+  
+  <!-- Features -->
+  <text x="220" y="250" font-size="16" fill="#7DD3FC" font-family="Arial, sans-serif">
+    ✨ AI-Powered · 🚀 Fast Scan · 📊 Real Charts · ☀️ Safe Mode
+  </text>
+  
+  <!-- Version badge -->
+  <rect x="220" y="290" width="120" height="40" rx="6" fill="none" stroke="#00D9FF" stroke-width="2" opacity="0.5"/>
+  <text x="280" y="318" font-size="18" font-weight="bold" text-anchor="middle" fill="#00D9FF" font-family="Arial">
+    v10.3
+  </text>
+</svg>
