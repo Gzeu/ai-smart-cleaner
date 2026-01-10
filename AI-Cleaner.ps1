@@ -9,8 +9,9 @@ Add-Type -AssemblyName System.Windows.Forms -ErrorAction Stop
 Add-Type -AssemblyName System.Drawing -ErrorAction Stop
 
 # App settings IMMEDIATELY AFTER
-[System.Windows.Forms.Application]::EnableVisualStyles()
+
 [System.Windows.Forms.Application]::SetCompatibleTextRenderingDefault($false)
+[System.Windows.Forms.Application]::EnableVisualStyles()
 
 # Helper Functions
 function Format-Size {
