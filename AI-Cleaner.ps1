@@ -10,6 +10,26 @@ Add-Type -AssemblyName System.Drawing -ErrorAction Stop
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 # Helper Functions
+
+# ===== GEMINI CLI CONFIGURATION =====
+# Cum adaugi Gemini API Key (Google AI Studio):
+# 1. Mergi pe https://aistudio.google.com/app/apikey
+# 2. Genereaza API Key (gratis, fara card)
+# 3. Seteaza mai jos sau in variabila de mediu:
+
+$GEMINI_API_KEY = $env:GEMINI_API_KEY  # Din env var, sau hardcoded mai jos:
+# $GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE"
+
+# Verificare Gemini CLI
+$useGemini = -not [string]::IsNullOrEmpty($GEMINI_API_KEY)
+if ($useGemini) {
+    Write-Host "🤖 Gemini AI integrat (AI-powered analysis disponibil)" -ForegroundColor Green
+} else {
+    Write-Host "📄 Gemini AI dezactivat - seteaza GEMINI_API_KEY pentru analize AI" -ForegroundColor Yellow
+}
+
+# ===== END CONFIGURATION =====
+
 function Format-Size {
     param([long]$Size)
     if ($Size -eq 0) { return '0 B' }
