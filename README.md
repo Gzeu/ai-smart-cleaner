@@ -2,6 +2,26 @@
 
 **Enterprise Windows Cleanup with AI, Charts, Scheduler & EXE!**
 
+## 🎨 Professional Graphics Theme (v10.3)
+
+![Banner](https://raw.githubusercontent.com/Gzeu/ai-smart-cleaner/main/assets/banner.svg)
+
+### Visual Design
+- **Color Palette**: Cyan (#00D9FF) + Blue (#0096FF) Gradient
+- **Theme**: Professional dark mode (#0A0A0F background)
+- **UI**: Enhanced gradient panels, styled controls, smooth animations
+- **Status**: Color-coded indicators (Green ✓, Yellow ⚠️, Red ✗)
+- **Typography**: Bold headers + Consolas monospace for logs
+- **Navigation**: Emoji icons (🧹 Clean, 🚀 Run, 📊 Results, 📝 Logs, ⚙️ Settings)
+
+### Professional Assets
+- ✨ **logo.svg** - Animated broom icon 256x256
+- 🖼️ **banner.svg** - GitHub header 1200x400px
+- 🏷️ **Badges** - Downloads/Version/License/Windows (SVG)
+- 🎪 **gui-mockup.html** - Interactive GUI preview
+
+
+
 [![GitHub stars](https://img.shields.io/github/stars/Gzeu/ai-smart-cleaner?style=social)](https://github.com/Gzeu/ai-smart-cleaner)
 [![GitHub forks](https://img.shields.io/github/forks/Gzeu/ai-smart-cleaner?style=social)](https://github.com/Gzeu/ai-smart-cleaner/network)
 [![License](https://img.shields.io/github/license/Gzeu/ai-smart-cleaner)](LICENSE)
