@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#0096FF;stop-opacity:0.05" />
+    </radialGradient>
+    <linearGradient id="broom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0096FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#0A0A0F"/>
+  <circle cx="256" cy="256" r="250" fill="url(#bgGrad)" opacity="0.8"/>
+  
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="url(#broom)" stroke-width="4" opacity="0.3"/>
+  
+  <!-- Main broom icon (large, centered) -->
+  <g transform="translate(256, 256)">
+    <!-- Handle -->
+    <line x1="-60" y1="-80" x2="60" y2="80" stroke="url(#broom)" stroke-width="24" stroke-linecap="round" opacity="0.9"/>
+    
+    <!-- Bristles -->
+    <g stroke="url(#broom)" stroke-width="16" stroke-linecap="round" opacity="0.85">
+      <line x1="50" y1="70" x2="80" y2="110"/>
+      <line x1="30" y1="50" x2="45" y2="90"/>
+      <line x1="10" y1="30" x2="10" y2="75"/>
+      <line x1="-10" y1="10" x2="-20" y2="60"/>
+      <line x1="-30" y1="-10" x2="-50" y2="40"/>
+      <line x1="-50" y1="-30" x2="-75" y2="20"/>
+    </g>
+    
+    <!-- Sparkle effects -->
+    <circle cx="-100" cy="-60" r="8" fill="#00D9FF" opacity="0.7"/>
+    <circle cx="100" cy="100" r="12" fill="#0096FF" opacity="0.6"/>
+    
+    <!-- Center glow -->
+    <circle cx="0" cy="0" r="30" fill="none" stroke="url(#broom)" stroke-width="2" opacity="0.4"/>
+  </g>
+  
+  <!-- Text: AI Cleaner -->
+  <text x="256" y="440" font-size="48" font-weight="bold" text-anchor="middle" fill="#00D9FF" font-family="Arial, sans-serif">
+    AI Cleaner
+  </text>
+  <text x="256" y="475" font-size="24" text-anchor="middle" fill="#0096FF" font-family="Arial, sans-serif">
+    v10.3
+  </text>
+</svg>
