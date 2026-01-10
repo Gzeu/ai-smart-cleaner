@@ -1,0 +1,74 @@
+name: Test AI Smart Cleaner
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PowerShell 7
+      uses: microsoft/setup-powershell@v2
+      with:
+        pwsh: true
+
+    - name: Install Pester
+      shell: pwsh
+      run: |
+        Install-Module -Name Pester -MinimumVersion 5.0.0 -Force -SkipPublisherCheck
+        Import-Module Pester
+
+    - name: Run Pester Tests
+      shell: pwsh
+      run: |
+        $config = New-PesterConfiguration
+        $config.Run.Path = './Tests'
+        $config.Run.PassThru = $true
+        $config.CodeCoverage.Enabled = $false
+        $config.Output.Verbosity = 'Detailed'
+        
+        $result = Invoke-Pester -Configuration $config
+        
+        if ($result.FailedCount -gt 0) {
+          throw "$($result.FailedCount) tests failed."
+        }
+
+    - name: Validate Module Import
+      shell: pwsh
+      run: |
+        Import-Module ./AI-Cleaner-Core.psm1 -Force
+        $commands = Get-Command -Module AI-Cleaner-Core
+        Write-Host "Exported commands: $($commands.Name -join ', ')"
+        if ($commands.Count -lt 5) {
+          throw "Expected at least 5 exported commands, found $($commands.Count)"
+        }
+
+    - name: Syntax Check
+      shell: pwsh
+      run: |
+        $files = @(
+          './AI-Cleaner.ps1',
+          './AI-Cleaner-Core.psm1',
+          './Tests/AI-Cleaner.Tests.ps1'
+        )
+        
+        foreach ($file in $files) {
+          Write-Host "Checking syntax: $file"
+          $errors = $null
+          $null = [System.Management.Automation.PSParser]::Tokenize(
+            (Get-Content $file -Raw), [ref]$errors
+          )
+          if ($errors.Count -gt 0) {
+            throw "Syntax errors in $file : $($errors | Out-String)"
+          }
+        }
+        Write-Host "All files passed syntax check!"

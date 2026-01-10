@@ -1,0 +1,16 @@
+{
+  "GeminiApiKey": "",
+  "SafeMode": true,
+  "MaxThreads": 4,
+  "LogRetentionDays": 30,
+  "CustomPaths": [],
+  "EnableGemini": false,
+  "CreateBackup": true,
+  "Theme": "Dark",
+  "CleanupCategories": {
+    "Temp": true,
+    "Cache": true,
+    "Logs": true,
+    "Downloads": false
+  }
+}
