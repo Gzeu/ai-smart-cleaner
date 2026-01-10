@@ -1,0 +1,301 @@
+/* AI Smart Cleaner v10.3+ - Modern 2026 Glassmorphism UI Styles */
+
+/* Root CSS Variables */
+:root {
+  --color-primary: #00D9FF;
+  --color-primary-dark: #0099CC;
+  --color-secondary: #0096FF;
+  --color-accent: #FF00FF;
+  --color-success: #00FF88;
+  --color-warning: #FFAA00;
+  --color-error: #FF3366;
+  --color-bg: #0A0E27;
+  --color-surface: #12172E;
+  --color-surface-light: #1A1F3A;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #B0BEC5;
+  --color-border: rgba(0, 217, 255, 0.2);
+  --color-border-light: rgba(0, 217, 255, 0.1);
+  
+  --gradient-primary: linear-gradient(135deg, #00D9FF 0%, #0096FF 100%);
+  --gradient-secondary: linear-gradient(135deg, #0096FF 0%, #6600FF 100%);
+  --gradient-dark: linear-gradient(135deg, #0A0E27 0%, #12172E 100%);
+  
+  --blur-amount: 10px;
+  --shadow-glow: 0 8px 32px 0 rgba(0, 217, 255, 0.1);
+  
+  --radius-base: 12px;
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --spacing-base: 16px;
+  --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--gradient-dark);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container */
+.main-container {
+  background: rgba(10, 14, 39, 0.9);
+  backdrop-filter: blur(var(--blur-amount));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-glow);
+  padding: var(--spacing-base);
+  margin: var(--spacing-base);
+}
+
+/* Panel Styling */
+.panel {
+  background: rgba(18, 23, 46, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  backdrop-filter: blur(var(--blur-amount));
+  box-shadow: var(--shadow-glow);
+  padding: var(--spacing-base);
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  background: rgba(18, 23, 46, 0.85);
+  border-color: rgba(0, 217, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.2);
+}
+
+/* Buttons */
+.btn {
+  background: rgba(0, 217, 255, 0.15);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  color: var(--color-text);
+  padding: 10px 20px;
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: rgba(0, 217, 255, 0.25);
+  border-color: rgba(0, 217, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.btn:active {
+  background: rgba(0, 217, 255, 0.35);
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
+}
+
+/* Input Fields */
+input, textarea, select {
+  background: rgba(18, 23, 46, 0.8);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  font-family: var(--font-family);
+}
+
+input:focus, textarea:focus, select:focus {
+  background: rgba(18, 23, 46, 1);
+  border-color: rgba(0, 217, 255, 0.5);
+  outline: none;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+/* Tabs */
+.tabs-container {
+  display: flex;
+  border-bottom: 2px solid var(--color-border);
+  gap: 0;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab:hover {
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--color-primary);
+}
+
+.tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: rgba(0, 217, 255, 0.05);
+}
+
+/* Icons */
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.icon:hover {
+  color: var(--color-secondary);
+  filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.5);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(0, 217, 255, 0.2);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.badge-success {
+  background: rgba(0, 255, 136, 0.2);
+  color: var(--color-success);
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.badge-warning {
+  background: rgba(255, 170, 0, 0.2);
+  color: var(--color-warning);
+  border-color: rgba(255, 170, 0, 0.3);
+}
+
+.badge-error {
+  background: rgba(255, 51, 102, 0.2);
+  color: var(--color-error);
+  border-color: rgba(255, 51, 102, 0.3);
+}
+
+/* Status Indicators */
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.success {
+  background: var(--color-success);
+}
+
+.status-indicator.warning {
+  background: var(--color-warning);
+}
+
+.status-indicator.error {
+  background: var(--color-error);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-container {
+    margin: 8px;
+    padding: 12px;
+  }
+  
+  .panel {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-container {
+    margin: 4px;
+    padding: 8px;
+  }
+  
+  .panel {
+    padding: 8px;
+  }
+  
+  .tabs-container {
+    gap: 0;
+  }
+  
+  .tab {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+}
