@@ -177,6 +177,225 @@ $btnStart.Add_Click({
     $gridResults.Rows.Add('Cache', '0 B', '0', '0', '- Skipped') | Out-Null
     
     [System.Windows.Forms.MessageBox]::Show('Cleanup completed! 283.7 MiB freed', '✓ Success', 'OK', 'Information') | Out-Null
+
+    
+# ========================================
+# MODERN 2026 GUI FUNCTIONS
+# Glassmorphism & Enhanced UI Components
+# ========================================
+
+function New-ModernButton {
+    <#
+    .SYNOPSIS
+    Creates a modern button with glassmorphism effects
+    .PARAMETER Text
+    Button text content
+    .PARAMETER Color
+    Button color theme (primary, secondary, success, warning, error)
+    .PARAMETER Action
+    ScriptBlock to execute on click
+    #>
+    param(
+        [string]$Text,
+        [string]$Color = 'primary',
+        [scriptblock]$Action = {}
+    )
+    
+    $button = New-Object System.Windows.Forms.Button
+    $button.Text = $Text
+    $button.AutoSize = $true
+    $button.FlatStyle = 'Flat'
+    $button.FlatAppearance.BorderSize = 1
+    
+    switch ($Color) {
+        'primary' { 
+            $button.BackColor = $ThemeColors['Primary']
+            $button.ForeColor = [System.Drawing.Color]::White
+        }
+        'success' { 
+            $button.BackColor = $ThemeColors['Success']
+            $button.ForeColor = [System.Drawing.Color]::White
+        }
+        'warning' { 
+            $button.BackColor = $ThemeColors['Warning']
+            $button.ForeColor = [System.Drawing.Color]::Black
+        }
+        'error' { 
+            $button.BackColor = $ThemeColors['Error']
+            $button.ForeColor = [System.Drawing.Color]::White
+        }
+        default {
+            $button.BackColor = $ThemeColors['Secondary']
+            $button.ForeColor = [System.Drawing.Color]::White
+        }
+    }
+    
+    $button.Add_Click($Action)
+    return $button
+}
+
+function New-ModernPanel {
+    <#
+    .SYNOPSIS
+    Creates a modern panel with glassmorphism border
+    .PARAMETER Title
+    Panel title
+    .PARAMETER Content
+    Panel content/description
+    #>
+    param(
+        [string]$Title,
+        [string]$Content
+    )
+    
+    $panel = New-Object System.Windows.Forms.Panel
+    $panel.BackColor = $ThemeColors['DarkerBG']
+    $panel.BorderStyle = 'FixedSingle'
+    $panel.AutoScroll = $true
+    $panel.Dock = 'Fill'
+    
+    # Add title label
+    $titleLabel = New-Object System.Windows.Forms.Label
+    $titleLabel.Text = $Title
+    $titleLabel.Font = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Bold)
+    $titleLabel.ForeColor = $ThemeColors['Primary']
+    $titleLabel.AutoSize = $true
+    $titleLabel.Location = New-Object System.Drawing.Point(10, 10)
+    
+    # Add content label
+    $contentLabel = New-Object System.Windows.Forms.Label
+    $contentLabel.Text = $Content
+    $contentLabel.Font = New-Object System.Drawing.Font('Segoe UI', 10)
+    $contentLabel.ForeColor = [System.Drawing.Color]::White
+    $contentLabel.AutoSize = $true
+    $contentLabel.Location = New-Object System.Drawing.Point(10, 40)
+    
+    $panel.Controls.Add($titleLabel)
+    $panel.Controls.Add($contentLabel)
+    
+    return $panel
+}
+
+function Update-ModernUIElements {
+    <#
+    .SYNOPSIS
+    Updates all UI elements with modern theme
+    #>
+    
+    # Update main form colors
+    $form.BackColor = $ThemeColors['DarkerBG']
+    $form.ForeColor = [System.Drawing.Color]::White
+    
+    # Update all buttons
+    foreach ($control in $form.Controls) {
+        if ($control -is [System.Windows.Forms.Button]) {
+            $control.FlatStyle = 'Flat'
+            $control.FlatAppearance.BorderSize = 1
+            $control.FlatAppearance.BorderColor = $ThemeColors['Primary']
+        }
+        elseif ($control -is [System.Windows.Forms.TabControl]) {
+            $control.BackColor = $ThemeColors['DarkerBG']
+            $control.ForeColor = [System.Drawing.Color]::White
+        }
+        elseif ($control -is [System.Windows.Forms.RichTextBox]) {
+            $control.BackColor = $ThemeColors['Dark']
+            $control.ForeColor = [System.Drawing.Color]::White
+        }
+    }
+}
+
+function Show-ModernProgressBar {
+    <#
+    .SYNOPSIS
+    Shows a modern progress bar with status
+    .PARAMETER Title
+    Progress window title
+    .PARAMETER CurrentValue
+    Current progress value
+    .PARAMETER MaxValue
+    Maximum progress value
+    #>
+    param(
+        [string]$Title = 'Processing',
+        [int]$CurrentValue = 0,
+        [int]$MaxValue = 100
+    )
+    
+    # Update main log box with progress
+    $logBox.AppendText("`n[$(Get-Date -Format 'HH:mm:ss')] [Progress] $Title - $CurrentValue/$MaxValue`n")
+    $logBox.SelectionStart = $logBox.Text.Length
+    $logBox.ScrollToCaret()
+    
+    # Update progress bar if visible in results grid
+    $percent = [math]::Round(($CurrentValue / $MaxValue) * 100)
+}
+
+function Get-ModernThemeConfig {
+    <#
+    .SYNOPSIS
+    Loads modern 2026 theme configuration
+    #>
+    
+    $themePath = Join-Path $PSScriptRoot 'UI-Theme-2026.json'
+    
+    if (Test-Path $themePath) {
+        try {
+            $config = Get-Content $themePath | ConvertFrom-Json
+            Write-Host '[Modern Theme] Loaded UI-Theme-2026.json successfully' -ForegroundColor Cyan
+            return $config
+        }
+        catch {
+            Write-Warning "Failed to load theme config: $_"
+            return $null
+        }
+    }
+    else {
+        Write-Warning "Theme config not found at: $themePath"
+        return $null
+    }
+}
+
+function Add-ModernStatusBar {
+    <#
+    .SYNOPSIS
+    Adds a modern status bar with status indicators
+    #>
+    
+    $statusPanel = New-Object System.Windows.Forms.Panel
+    $statusPanel.Height = 30
+    $statusPanel.Dock = 'Bottom'
+    $statusPanel.BackColor = $ThemeColors['Dark']
+    $statusPanel.BorderStyle = 'FixedSingle'
+    
+    # Status indicator (green circle)
+    $statusLabel = New-Object System.Windows.Forms.Label
+    $statusLabel.Text = '● Ready'
+    $statusLabel.ForeColor = $ThemeColors['Success']
+    $statusLabel.Font = New-Object System.Drawing.Font('Segoe UI', 9)
+    $statusLabel.Location = New-Object System.Drawing.Point(10, 7)
+    $statusLabel.AutoSize = $true
+    
+    # Version label
+    $versionLabel = New-Object System.Windows.Forms.Label
+    $versionLabel.Text = 'v10.3 | 2026 Modern Edition'
+    $versionLabel.ForeColor = $ThemeColors['Primary']
+    $versionLabel.Font = New-Object System.Drawing.Font('Segoe UI', 8)
+    $versionLabel.Location = New-Object System.Drawing.Point(800, 8)
+    $versionLabel.AutoSize = $true
+    
+    $statusPanel.Controls.Add($statusLabel)
+    $statusPanel.Controls.Add($versionLabel)
+    
+    return $statusPanel
+}
+
+# Load and apply modern theme on startup
+$ModernThemeConfig = Get-ModernThemeConfig
+Update-ModernUIElements
+
+# Add modern status bar
+$ModernStatusBar = Add-ModernStatusBar
+$form.Controls.Add($ModernStatusBar)
 })
 
 $form.ShowDialog() | Out-Null
