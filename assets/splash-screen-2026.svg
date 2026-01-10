@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0E27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2847;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowCyan" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:0" />
+    </radialGradient>
+    <radialGradient id="glowBlue" cx="70%" cy="80%" r="50%">
+      <stop offset="0%" style="stop-color:#0096FF;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#0096FF;stop-opacity:0" />
+    </radialGradient>
+    <style>
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(20px); }
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+      .icon { animation: float 3s ease-in-out infinite; }
+      .spinner { animation: spin 2s linear infinite; }
+      .pulsing { animation: pulse 2s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="150" r="300" fill="url(#glowCyan)"/>
+  <circle cx="1000" cy="700" r="400" fill="url(#glowBlue)"/>
+
+  <!-- Central content -->
+  <g transform="translate(600, 300)">
+    <!-- Main icon -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="url(#glowCyan)" stroke-width="2" opacity="0.3"/>
+    <g class="spinner" transform="translate(0, 0)">
+      <circle cx="0" cy="0" r="75" fill="none" stroke="#00D9FF" stroke-width="3" stroke-dasharray="235 470" opacity="0.8"/>
+    </g>
+    <g class="icon">
+      <line x1="-30" y1="-40" x2="30" y2="40" stroke="#00D9FF" stroke-width="6" stroke-linecap="round"/>
+      <g stroke="#0096FF" stroke-width="5" stroke-linecap="round">
+        <line x1="20" y1="30" x2="35" y2="50"/>
+        <line x1="5" y1="15" x2="10" y2="40"/>
+        <line x1="-15" y1="5" x2="-20" y2="35"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Text -->
+  <text x="600" y="450" font-size="48" font-weight="bold" text-anchor="middle" fill="#00D9FF" font-family="Arial, sans-serif">
+    AI Smart Cleaner
+  </text>
+  <text x="600" y="490" font-size="20" text-anchor="middle" fill="#0096FF" font-family="Arial, sans-serif">
+    Initializing...
+  </text>
+
+  <!-- Progress bar -->
+  <g transform="translate(300, 600)">
+    <rect width="600" height="8" rx="4" fill="rgba(0, 217, 255, 0.2)"/>
+    <rect width="300" height="8" rx="4" fill="url(#bgGrad)" stroke="#00D9FF" stroke-width="2">
+      <animate attributeName="width" from="0" to="600" dur="3s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- Version -->
+  <text x="600" y="750" font-size="14" text-anchor="middle" fill="#888" font-family="Arial, sans-serif">
+    v10.3 - Modern 2026 Edition
+  </text>
+</svg>
