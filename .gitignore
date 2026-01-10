@@ -1,0 +1,228 @@
+# AI Smart Cleaner - Git Ignore File
+
+# ============================================================================
+# USER CONFIGURATION & SENSITIVE DATA
+# ============================================================================
+
+# User configuration with API keys
+AI-Cleaner-Config.json
+
+# Backup of original config (keep template)
+!AI-Cleaner-Config.json.template
+
+# Environment variables with secrets
+.env
+.env.local
+*.secret
+
+# ============================================================================
+# LOGS & TEMPORARY FILES
+# ============================================================================
+
+# Application logs
+*.log
+logs/
+ai-cleaner-logs/
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# ============================================================================
+# POWERSHELL SPECIFIC
+# ============================================================================
+
+# PowerShell transcript logs
+PowerShell_transcript*.txt
+
+# PowerShell console history
+ConsoleHost_history.txt
+
+# Module installation directory
+Modules/
+
+# ============================================================================
+# TESTING & COVERAGE
+# ============================================================================
+
+# Pester test results
+TestResults/
+TestResults.xml
+coverage.xml
+*.coverage
+
+# Code coverage reports
+coverage/
+CodeCoverage/
+
+# ============================================================================
+# IDE & EDITOR FILES
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# PowerShell ISE
+*.psess
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============================================================================
+# OPERATING SYSTEM FILES
+# ============================================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Linux
+.directory
+*.sw?
+
+# ============================================================================
+# BUILD & DISTRIBUTION
+# ============================================================================
+
+# Build output
+build/
+dist/
+out/
+bin/
+obj/
+
+# Package files
+*.zip
+*.7z
+*.tar.gz
+*.rar
+
+# Compiled modules
+*.psm1.compiled
+*.dll
+*.pdb
+
+# ============================================================================
+# DOCUMENTATION
+# ============================================================================
+
+# Generated documentation
+docs/_build/
+docs/.doctrees/
+site/
+
+# ============================================================================
+# DEPENDENCIES
+# ============================================================================
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Node modules (if using any JS tools)
+node_modules/
+
+# Python virtual environments (if using Python tools)
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# ============================================================================
+# PROJECT SPECIFIC
+# ============================================================================
+
+# Scan results exports
+exports/
+reports/
+*.csv
+*.json
+!AI-Cleaner-Config.json
+!package.json
+
+# Backup data
+backups/
+restore-points/
+
+# Performance benchmarks
+benchmarks/
+*.bench
+
+# Debug output
+debug/
+*.debug
+
+# ============================================================================
+# SECURITY & CERTIFICATES
+# ============================================================================
+
+# Private keys and certificates
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+*.cer
+
+# SSL/TLS
+*.ssl
+
+# ============================================================================
+# MISC
+# ============================================================================
+
+# Compressed files (except releases)
+*.tar
+*.gz
+*.bz2
+*.xz
+
+# Large binary files
+*.exe
+*.msi
+*.iso
+
+# Database files
+*.db
+*.sqlite
+*.mdf
+*.ldf

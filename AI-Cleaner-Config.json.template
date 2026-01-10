@@ -1,0 +1,28 @@
+{
+  "_comment": "AI Smart Cleaner Configuration Template - Copy to AI-Cleaner-Config.json and customize",
+  "GeminiApiKey": "",
+  "SafeMode": true,
+  "MaxThreads": 4,
+  "LogRetentionDays": 30,
+  "CustomPaths": [],
+  "EnableGemini": false,
+  "CreateBackup": true,
+  "Theme": "Dark",
+  "CleanupCategories": {
+    "Temp": true,
+    "Cache": true,
+    "Logs": true,
+    "Downloads": false
+  },
+  "_notes": {
+    "GeminiApiKey": "Get your free API key from https://makersuite.google.com/app/apikey",
+    "SafeMode": "true = preview only, false = actually delete files",
+    "MaxThreads": "Number of parallel scanning threads (1-16, recommended: 4-8)",
+    "LogRetentionDays": "How many days to keep log files (0 = forever)",
+    "CustomPaths": "Add your own directories to scan, e.g. ['C:\\MyFolder', 'D:\\OldData']",
+    "EnableGemini": "Enable AI-powered safety analysis (requires API key)",
+    "CreateBackup": "Create Windows restore point before cleanup",
+    "Theme": "UI theme: 'Dark' or 'Light'",
+    "CleanupCategories": "Enable/disable specific cleanup categories"
+  }
+}
