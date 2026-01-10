@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Cleaner 2026 - Modern UI Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0A0E27 0%, #1a2847 50%, #0f1b35 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            top: -50px;
+            left: 10%;
+        }
+
+        .particle::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-reverse 12s ease-in-out infinite;
+            bottom: -100px;
+            right: 5%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with Glassmorphism */
+        .header {
+            backdrop-filter: blur(10px);
+            background: rgba(0, 217, 255, 0.08);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D9FF 0%, #0096FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: #00D9FF;
+            opacity: 0.8;
+        }
+
+        /* Main content with Glassmorphism panels */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .panel {
+            backdrop-filter: blur(20px);
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.05),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: rgba(0, 217, 255, 0.3);
+            background: rgba(26, 26, 46, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.15),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00D9FF;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Stats card */
+        .stat-card {
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 150, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 217, 255, 0.4);
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(0, 150, 255, 0.1) 100%);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00D9FF;
+        }
+
+        /* Button modern */
+        .btn {
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #00D9FF 0%, #0096FF 100%);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+            background: linear-gradient(135deg, #00E8FF 0%, #00A5FF 100%);
+        }
+
+        .btn:active {
+            transform: translateY(0px);
+        }
+
+        /* Scrollbar styling */
+        .panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .panel::-webkit-scrollbar-track {
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 217, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particle"></div>
+
+    <div class="container">
+        <div class="header">
+            <div>
+                <div class="header-title">🧹 AI Smart Cleaner</div>
+                <div class="header-subtitle">Modern 2026 Edition</div>
+            </div>
+            <div class="header-subtitle">Status: Ready</div>
+        </div>
+
+        <div class="main-content">
+            <!-- Left Panel: Settings -->
+            <div class="panel">
+                <div class="panel-title">⚙️ Settings</div>
+                <div class="panel-content">
+                    <div class="stat-card">
+                        <div class="stat-label">Safe Mode</div>
+                        <div class="stat-value">✓ Enabled</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Cleanup Categories</div>
+                        <div class="stat-value">6 Active</div>
+                    </div>
+                    <button class="btn" style="width: 100%; margin-top: 10px;">Configure</button>
+                </div>
+            </div>
+
+            <!-- Center Panel: Main Stats -->
+            <div class="panel">
+                <div class="panel-title">📊 Real-Time Stats</div>
+                <div class="panel-content">
+                    <div class="stat-card">
+                        <div class="stat-label">Temporary Files</div>
+                        <div class="stat-value">212.6 MiB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Cache Files</div>
+                        <div class="stat-value">1.2 GiB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Log Files</div>
+                        <div class="stat-value">71.1 MiB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Cleanable</div>
+                        <div class="stat-value" style="color: #4CAF50;">1.5 GiB</div>
+                    </div>
+                    <button class="btn" style="width: 100%; margin-top: 15px; font-size: 16px; padding: 15px;">🚀 START CLEANUP</button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Status -->
+            <div class="panel">
+                <div class="panel-title">📈 Performance</div>
+                <div class="panel-content">
+                    <div class="stat-card">
+                        <div class="stat-label">System Health</div>
+                        <div class="stat-value">95%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Disk Space</div>
+                        <div class="stat-value">250 GB</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Last Cleanup</div>
+                        <div class="stat-value" style="font-size: 12px; color: #888;">2 hours ago</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Next Cleanup</div>
+                        <div class="stat-value" style="font-size: 12px; color: #0096FF;">18:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
