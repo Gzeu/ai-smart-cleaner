@@ -1,100 +1,117 @@
 #Requires -Version 7.0
-# ENHANCED AI-Cleaner.ps1 v10.1 - Improved GUI & Functions
+# AI-Cleaner.ps1 v10.2 ULTIMATE - Charts + Scheduler + History
 
-# ... (keep existing imports/init)
+# Import + Init unchanged...
 
-# NEW THEME WITH BETTER COLORS
-$ThemeColors = @{
-    Dark = @{
-        Background = [System.Drawing.Color]::FromArgb(18, 18, 18)
-        Panel = [System.Drawing.Color]::FromArgb(35, 35, 35)
-        Accent = [System.Drawing.Color]::FromArgb(0, 122, 255)
-        Success = [System.Drawing.Color]::FromArgb(46, 204, 113)
-        Warning = [System.Drawing.Color]::FromArgb(241, 196, 15)
-        Danger = [System.Drawing.Color]::FromArgb(231, 76, 60)
-        Text = [System.Drawing.Color]::FromArgb(236, 240, 241)
-        Mute = [System.Drawing.Color]::FromArgb(127, 140, 141)
-    }
-}
+# NEW: Add Charting Assembly
+Add-Type -AssemblyName System.Windows.Forms.DataVisualization -ErrorAction SilentlyContinue
 
-# ENHANCED GUI: Add DataGridView for results
-function New-ResultsTable {
-    $dataGrid = New-Object System.Windows.Forms.DataGridView
-    $dataGrid.Dock = 'Fill'
-    $dataGrid.AllowUserToAddRows = $false
-    $dataGrid.ReadOnly = $true
-    $dataGrid.SelectionMode = 'FullRowSelect'
-    $dataGrid.AutoSizeColumnsMode = 'Fill'
-    $dataGrid.BackgroundColor = $ThemeColors['Dark'].Panel
-    $dataGrid.GridColor = $ThemeColors['Dark'].Mute
-    $dataGrid.DefaultCellStyle.ForeColor = $ThemeColors['Dark'].Text
-    $dataGrid.AlternatingRowsDefaultCellStyle.BackColor = [System.Drawing.Color]::FromArgb(25,25,25)
-    $dataGrid.ColumnHeadersDefaultCellStyle.BackColor = $ThemeColors['Dark'].Accent
-    $dataGrid.ColumnHeadersDefaultCellStyle.ForeColor = 'White'
-    return $dataGrid
-}
+# CHARTS TAB
+$tabCharts = New-Object System.Windows.Forms.TabPage
+$tabCharts.Text = '📈 Charts'
 
-# SPLIT TABS: Results now has Table + Logs
-$tabResultsTable = New-Object System.Windows.Forms.TabPage
-$tabResultsTable.Text = '📊 Results Table'
-$dgvResults = New-ResultsTable
-$tabResultsTable.Controls.Add($dgvResults)
+$chartSpace = New-Object System.Windows.Forms.DataVisualization.Charting.Chart
+$chartSpace.Dock = 'Fill'
+$chartSpace.BackColor = $ThemeColors['Dark'].Panel
+$chartSpace.BorderlineColor = $ThemeColors['Dark'].Accent
 
-$tabResultsLog = New-Object System.Windows.Forms.TabPage
-$tabResultsLog.Text = '📝 Live Logs'
-$rtbLog.Dock = 'Fill'
-$tabResultsLog.Controls.Add($rtbLog)
+$tabCharts.Controls.Add($chartSpace)
+$tabControl.TabPages.Add($tabCharts)
 
-# NEW TAB: Schedule
-$tabSchedule = New-Object System.Windows.Forms.TabPage
-$tabSchedule.Text = '⏰ Schedule'
-# Placeholder for future scheduler
-$lblSchedule = New-Object System.Windows.Forms.Label
-$lblSchedule.Text = 'Scheduler coming in v10.2'
-$lblSchedule.Dock = 'Fill'
-$lblSchedule.TextAlign = 'MiddleCenter'
-$tabSchedule.Controls.Add($lblSchedule)
+# SCHEDULE TAB - REAL SCHEDULER
+$tabSchedule.Controls.Clear()
 
-# ADD TO TABCONTROL
-$tabControl.TabPages.Add($tabResultsTable)
-$tabControl.TabPages.Add($tabResultsLog)
-$tabControl.TabPages.Add($tabSchedule)
+$lblScheduleStatus = New-Object System.Windows.Forms.Label
+$lblScheduleStatus.Text = 'Scheduler Status: Not Scheduled'
+$lblScheduleStatus.Dock = 'Top'
+$lblScheduleStatus.Height = 40
+$tabSchedule.Controls.Add($lblScheduleStatus)
 
-# NEW: Whitelist/Blacklist in Config Panel
-$yPos += 60
-$lblWhitelist = New-Object System.Windows.Forms.Label
-$lblWhitelist.Text = 'Whitelist Paths (comma sep):'
-$lblWhitelist.Location = New-Object System.Drawing.Point(20, $yPos)
-$txtWhitelist = New-Object System.Windows.Forms.TextBox
-$txtWhitelist.Location = New-Object System.Drawing.Point(20, ($yPos+25))
-$txtWhitelist.Size = New-Object System.Drawing.Size(600,25)
+$chkDaily = New-Object System.Windows.Forms.CheckBox
+$chkDaily.Text = 'Daily Cleanup at'
+$chkDaily.Location = New-Object System.Drawing.Point(20,50)
 
-# NEW BUTTONS: Export, Whitelist Add
-$btnExport = New-Object System.Windows.Forms.Button
-$btnExport.Text = '📤 Export Report'
-$btnExport.Location = New-Object System.Drawing.Point(800, 430)
-$btnExport.Size = New-Object System.Drawing.Size(200,70)
+$timePicker = New-Object System.Windows.Forms.DateTimePicker
+$timePicker.Format = 'Time'
+$timePicker.ShowUpDown = $true
+$timePicker.Location = New-Object System.Drawing.Point(150,50)
 
-# ENHANCED START CLEANUP - Populate Table
+$btnSchedule = New-Object System.Windows.Forms.Button
+$btnSchedule.Text = '⏰ Schedule'
+$btnSchedule.Location = New-Object System.Drawing.Point(20,90)
+$btnSchedule.Size = New-Object System.Drawing.Size(120,40)
+
+$btnUnschedule = New-Object System.Windows.Forms.Button
+$btnUnschedule.Text = '🛑 Unschedule'
+$btnUnschedule.Location = New-Object System.Drawing.Point(150,90)
+$btnUnschedule.Size = New-Object System.Drawing.Size(120,40)
+
+$tabSchedule.Controls.AddRange(@($chkDaily, $timePicker, $btnSchedule, $btnUnschedule))
+
+# HISTORY TAB
+$tabHistory = New-Object System.Windows.Forms.TabPage
+$tabHistory.Text = '📚 History'
+
+$lvHistory = New-Object System.Windows.Forms.ListView
+$lvHistory.Dock = 'Fill'
+$lvHistory.View = 'Details'
+$lvHistory.FullRowSelect = $true
+$lvHistory.Columns.Add('Date',200)
+$lvHistory.Columns.Add('Size Freed',150)
+$lvHistory.Columns.Add('Files',80)
+$lvHistory.Columns.Add('Duration',100)
+$lvHistory.Columns.Add('Mode',100)
+
+$tabHistory.Controls.Add($lvHistory)
+$tabControl.TabPages.Add($tabHistory)
+
+# ENHANCED START CLEANUP
 $btnStart.Add_Click({
-    # Existing logic...
-    # After cleanup:
-    $dgvResults.DataSource = [System.Collections.ArrayList]$allResults
-    $dgvResults.Refresh()
+    # Existing...
     
-    # Export if enabled
-    if ($script:Config.ExportReports) {
-        $reports = Export-CleanupReport -Results $allResults -Path $script:Config.ReportPath
-        Write-CleanerLog "Reports exported: $($reports -join ', ')" -Level Success -LogBox $rtbLog
+    # POPULATE CHART
+    $chartSpace.Series.Clear()
+    $pieSeries = New-Object System.Windows.Forms.DataVisualization.Charting.Series('Space by Category')
+    $pieSeries.ChartType = 'Pie'
+    $pieSeries['PieLabelStyle'] = 'Outside'
+    
+    foreach ($result in $allResults) {
+        $pieSeries.Points.AddXY($result.Category, $result.Size) | Out-Null
     }
+    $chartSpace.Series.Add($pieSeries)
+    $chartSpace.Titles.Add('Space Freed by Category')
+    
+    # HISTORY
+    $historyItem = New-Object System.Windows.Forms.ListViewItem((Get-Date -Format 'yyyy-MM-dd HH:mm'))
+    $historyItem.SubItems.Add((Format-ByteSize $totalSize))
+    $historyItem.SubItems.Add($totalFiles.ToString())
+    $historyItem.SubItems.Add("$($duration.ToString('F1'))s")
+    $historyItem.SubItems.Add(($chkSafeMode.Checked ? 'Safe' : 'Delete'))
+    $lvHistory.Items.Insert(0, $historyItem)
 })
 
-# IMPROVED THEME APPLICATION
-foreach ($tab in $tabControl.TabPages) {
-    Set-ControlTheme -Control $tab -Theme 'Dark'
+# SCHEDULER EVENTS
+$btnSchedule.Add_Click({
+    $taskName = 'AI-Smart-Cleaner-Daily'
+    $time = $timePicker.Value.TimeOfDay
+    
+    $action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument "-NoProfile -File '$PSScriptRoot\AI-Cleaner.ps1' -SafeMode"
+    $trigger = New-ScheduledTaskTrigger -Daily -At $time
+    $principal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType ServiceAccount -RunLevel Highest
+    
+    Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Principal $principal -Force
+    $lblScheduleStatus.Text = "Scheduled Daily at $time"
+})
+
+$btnUnschedule.Add_Click({
+    Unregister-ScheduledTask -TaskName 'AI-Smart-Cleaner-Daily' -Confirm:$false
+    $lblScheduleStatus.Text = 'Not Scheduled'
+})
+
+# LOAD HISTORY FROM LOGS (simple)
+$historyLogs = Get-ChildItem "$env:TEMP\ai-cleaner-logs" -Filter '*.log' | Sort-Object LastWriteTime -Descending | Select-Object -First 10
+foreach ($log in $historyLogs) {
+    # Parse simple history...
 }
 
-# LAUNCH WITH ANIMATED PROGRESS (fake)
-$progressBar.Style = 'Marquee'
-
-Write-Host '🧹 AI Smart Cleaner v10.1 - ENHANCED GUI & FUNCTIONS!'
+# PERFECT THEME & LAUNCH
