@@ -1,0 +1,107 @@
+{
+  "version": "2026.1.0",
+  "theme": "Modern Glassmorphism",
+  "metadata": {
+    "name": "AI Smart Cleaner 2026 Modern Theme",
+    "author": "Gzeu",
+    "createdAt": "2024",
+    "targetVersion": "v10.3+"
+  },
+  "colors": {
+    "primary": "#00D9FF",
+    "primaryDark": "#0099CC",
+    "secondary": "#0096FF",
+    "accent": "#FF00FF",
+    "success": "#00FF88",
+    "warning": "#FFAA00",
+    "error": "#FF3366",
+    "background": "#0A0E27",
+    "surface": "#12172E",
+    "surfaceLight": "#1A1F3A",
+    "text": "#FFFFFF",
+    "textSecondary": "#B0BEC5",
+    "border": "rgba(0, 217, 255, 0.2)",
+    "borderLight": "rgba(0, 217, 255, 0.1)"
+  },
+  "gradients": {
+    "primary": "linear-gradient(135deg, #00D9FF 0%, #0096FF 100%)",
+    "secondary": "linear-gradient(135deg, #0096FF 0%, #6600FF 100%)",
+    "accent": "linear-gradient(135deg, #FF00FF 0%, #FF6B9D 100%)",
+    "dark": "linear-gradient(135deg, #0A0E27 0%, #12172E 100%)"
+  },
+  "effects": {
+    "blur": "10px",
+    "opacity": "0.85",
+    "shadowColor": "rgba(0, 217, 255, 0.3)",
+    "glowIntensity": "medium",
+    "animationSpeed": "0.3s"
+  },
+  "ui": {
+    "borderRadius": "12px",
+    "borderRadiusLg": "16px",
+    "borderRadiusSm": "8px",
+    "spacing": "16px",
+    "buttonHeight": "40px",
+    "inputHeight": "36px",
+    "fontSize": "14px",
+    "fontSizeLg": "16px",
+    "fontSizeSm": "12px",
+    "fontFamily": "Segoe UI, -apple-system, BlinkMacSystemFont"
+  },
+  "components": {
+    "button": {
+      "background": "rgba(0, 217, 255, 0.15)",
+      "hoverBackground": "rgba(0, 217, 255, 0.25)",
+      "activeBackground": "rgba(0, 217, 255, 0.35)",
+      "border": "1px solid rgba(0, 217, 255, 0.3)",
+      "borderRadius": "12px",
+      "padding": "10px 20px",
+      "transition": "all 0.3s ease"
+    },
+    "input": {
+      "background": "rgba(18, 23, 46, 0.8)",
+      "focusBackground": "rgba(18, 23, 46, 1)",
+      "border": "1px solid rgba(0, 217, 255, 0.2)",
+      "focusBorder": "1px solid rgba(0, 217, 255, 0.5)",
+      "borderRadius": "8px",
+      "padding": "8px 12px",
+      "textColor": "#FFFFFF"
+    },
+    "panel": {
+      "background": "rgba(18, 23, 46, 0.7)",
+      "border": "1px solid rgba(0, 217, 255, 0.15)",
+      "borderRadius": "12px",
+      "backdropFilter": "blur(10px)",
+      "boxShadow": "0 8px 32px 0 rgba(0, 217, 255, 0.1)",
+      "padding": "20px"
+    },
+    "tab": {
+      "background": "transparent",
+      "hoverBackground": "rgba(0, 217, 255, 0.1)",
+      "activeBackground": "rgba(0, 217, 255, 0.2)",
+      "borderBottom": "2px solid transparent",
+      "activeBorderBottom": "2px solid #00D9FF",
+      "color": "#B0BEC5",
+      "activeColor": "#00D9FF"
+    },
+    "icon": {
+      "color": "#00D9FF",
+      "hoverColor": "#0096FF",
+      "size": "20px",
+      "sizeLg": "24px",
+      "sizeSm": "16px"
+    }
+  },
+  "animations": {
+    "slideIn": "slideIn 0.3s ease-out",
+    "fadeIn": "fadeIn 0.3s ease-out",
+    "pulse": "pulse 2s infinite",
+    "glow": "glow 2s ease-in-out infinite",
+    "shimmer": "shimmer 2s infinite"
+  },
+  "responsiveness": {
+    "mobile": "(max-width: 640px)",
+    "tablet": "(max-width: 1024px)",
+    "desktop": "(min-width: 1025px)"
+  }
+}
