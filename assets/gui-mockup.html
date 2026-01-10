@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Cleaner - GUI Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Consolas', monospace; 
+            background: linear-gradient(135deg, #0a0e27 0%, #1a2847 100%);
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .window {
+            border: 1px solid #00d9ff;
+            border-radius: 8px;
+            background: #1a1a2e;
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.2);
+            overflow: hidden;
+        }
+        .titlebar {
+            background: linear-gradient(90deg, #00d9ff 0%, #0096ff 100%);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #fff;
+        }
+        .controls { display: flex; gap: 8px; }
+        .btn-ctrl { width: 12px; height: 12px; border-radius: 2px; }
+        .btn-min { background: #FFC107; }
+        .btn-max { background: #4CAF50; }
+        .btn-close { background: #F44336; }
+        .content { padding: 20px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #333; }
+        .tab { 
+            padding: 10px 20px; 
+            cursor: pointer;
+            color: #888;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: #00d9ff;
+            border-bottom-color: #00d9ff;
+        }
+        .tab:hover { color: #00d9ff; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .button {
+            background: linear-gradient(135deg, #00d9ff 0%, #0096ff 100%);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 10px 0;
+            transition: transform 0.2s;
+        }
+        .button:hover { transform: scale(1.05); }
+        .log-box {
+            background: #0a0a0a;
+            border: 1px solid #00d9ff;
+            padding: 12px;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+        .log-line { margin: 2px 0; }
+        .log-info { color: #00d9ff; }
+        .log-success { color: #4CAF50; }
+        .log-warning { color: #FFC107; }
+        .log-error { color: #F44336; }
+        .slider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .slider-label { width: 120px; }
+        .toggle { width: 50px; height: 24px; background: #444; border-radius: 12px; cursor: pointer; position: relative; }
+        .toggle.on { background: #4CAF50; }
+        .toggle-dot { width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.3s; }
+        .toggle.on .toggle-dot { left: 28px; }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .table th {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 2px solid #00d9ff;
+        }
+        .table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #333;
+        }
+        .table tr:hover { background: rgba(0, 217, 255, 0.05); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="window">
+            <div class="titlebar">
+                <span>🧹 AI Smart Cleaner v10.3</span>
+                <div class="controls">
+                    <div class="btn-ctrl btn-min"></div>
+                    <div class="btn-ctrl btn-max"></div>
+                    <div class="btn-ctrl btn-close"></div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="tabs">
+                    <div class="tab active" onclick="showTab('settings')">⚙️ Settings</div>
+                    <div class="tab" onclick="showTab('results')">📊 Results</div>
+                    <div class="tab" onclick="showTab('logs')">📝 Logs</div>
+                </div>
+                
+                <div id="settings" class="section active">
+                    <h3>Cleanup Settings</h3>
+                    <div class="slider">
+                        <label class="slider-label">Safe Mode:</label>
+                        <div class="toggle on" onclick="toggleMode(this)">
+                            <div class="toggle-dot"></div>
+                        </div>
+                        <span>Preview Only (Enabled)</span>
+                    </div>
+                    <h4>Cleanup Categories:</h4>
+                    <div style="margin: 10px 0;">
+                        <label><input type="checkbox" checked> Temp Files (212.6 MiB)</label><br>
+                        <label><input type="checkbox" checked> Cache (0 B)</label><br>
+                        <label><input type="checkbox" checked> Logs (71.1 MiB)</label><br>
+                        <label><input type="checkbox"> Thumbnails (0 B)</label>
+                    </div>
+                    <button class="button">🚀 START CLEANUP</button>
+                </div>
+                
+                <div id="results" class="section">
+                    <h3>Cleanup Results</h3>
+                    <table class="table">
+                        <tr>
+                            <th>Category</th>
+                            <th>Size Freed</th>
+                            <th>Files</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <td>Temp</td>
+                            <td style="color: #4CAF50;">212.6 MiB</td>
+                            <td>1,500</td>
+                            <td style="color: #4CAF50;">✓ Success</td>
+                        </tr>
+                        <tr>
+                            <td>Logs</td>
+                            <td style="color: #4CAF50;">71.1 MiB</td>
+                            <td>850</td>
+                            <td style="color: #4CAF50;">✓ Success</td>
+                        </tr>
+                        <tr>
+                            <td>Cache</td>
+                            <td style="color: #888;">0 B</td>
+                            <td>0</td>
+                            <td style="color: #888;">- Skipped</td>
+                        </tr>
+                    </table>
+                    <h4>📈 Total: 283.7 MiB freed (2,350 files)</h4>
+                </div>
+                
+                <div id="logs" class="section">
+                    <h3>Live Logs</h3>
+                    <div class="log-box">
+                        <div class="log-line log-info">[18:43:36][Info] ✓ Starting cleanup scan...</div>
+                        <div class="log-line log-info">[18:43:36][Info] ✓ Prefetch: 0 B (Safe: True)</div>
+                        <div class="log-line log-info">[18:43:36][Info] ✓ Temp: 212.6 MiB (Safe: True)</div>
+                        <div class="log-line log-info">[18:43:36][Info] ✓ Logs: 71.1 MiB (Safe: True)</div>
+                        <div class="log-line log-success">[18:43:37][Success] ✓ Cleanup completed! 283.7 MiB freed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        function toggleMode(el) {
+            el.classList.toggle('on');
+        }
+    </script>
+</body>
+</html>
