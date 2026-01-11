@@ -265,7 +265,7 @@ $lblCategories.Location = New-Object System.Drawing.Point(20, 90)
 $lblCategories.AutoSize = $true
 $tabSettings.Controls.Add($lblCategories)
 
-$categories = @('Temp', 'Cache', 'Logs', 'Downloads', 'Thumbnails', 'Prefetch, 'Duplicates', 'Browser Cache', 'Recycle Bin'')
+$categories = @('Temp', 'Cache', 'Logs', 'Downloads', 'Thumbnails', 'Prefetch', 'Duplicates', 'Browser Cache', 'Recycle Bin'')
 foreach ($i in 0..($categories.Length - 1)) {
     $chk = New-Object System.Windows.Forms.CheckBox
     $chk.Text = $categories[$i]
