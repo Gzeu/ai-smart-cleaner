@@ -265,7 +265,7 @@ $lblCategories.Location = New-Object System.Drawing.Point(20, 90)
 $lblCategories.AutoSize = $true
 $tabSettings.Controls.Add($lblCategories)
 
-$categories = @('Temp', 'Cache', 'Logs', 'Downloads', 'Thumbnails', 'Prefetch')
+$categories = @('Temp', 'Cache', 'Logs', 'Downloads', 'Thumbnails', 'Prefetch, 'Duplicates', 'Browser Cache', 'Recycle Bin'')
 foreach ($i in 0..($categories.Length - 1)) {
     $chk = New-Object System.Windows.Forms.CheckBox
     $chk.Text = $categories[$i]
@@ -276,16 +276,51 @@ foreach ($i in 0..($categories.Length - 1)) {
     $tabSettings.Controls.Add($chk)
 }
 
-# Start Cleanup Button
-$btnStartCleanup = New-Object System.Windows.Forms.Button
-$btnStartCleanup.Text = '🚀 START CLEANUP'
-$btnStartCleanup.BackColor = $ThemeColors['Primary']
-$btnStartCleanup.ForeColor = [System.Drawing.Color]::Black
-$btnStartCleanup.Font = New-Object System.Drawing.Font('Segoe UI', 12, [System.Drawing.FontStyle]::Bold)
-$btnStartCleanup.Location = New-Object System.Drawing.Point(20, 320)
-$btnStartCleanup.Size = New-Object System.Drawing.Size(250, 50)
-$btnStartCleanup.Cursor = 'Hand'
-$tabSettings.Controls.Add($btnStartCleanup)
+# ========================================
+# ENHANCED TOOLBAR WITH MULTIPLE BUTTONS
+# ========================================
+$toolbarPanel = New-Object System.Windows.Forms.Panel
+$toolbarPanel.Height = 50
+$toolbarPanel.Dock = 'Top'
+$toolbarPanel.BackColor = $ThemeColors['Surface']
+$toolbarPanel.BorderStyle = 'FixedSingle'
+
+# Array of button definitions: (Icon, Text, Action)
+$buttonDefs = @(
+    @{ Icon = '🔍'; Text = 'SCAN'; Action = 'Scan' },
+    @{ Icon = '🚀'; Text = 'CLEANUP'; Action = 'Cleanup' },
+    @{ Icon = '⏸️'; Text = 'PAUSE'; Action = 'Pause' },
+    @{ Icon = '🔙'; Text = 'UNDO'; Action = 'Undo' },
+    @{ Icon = '⚙️'; Text = 'SETTINGS'; Action = 'Settings' },
+    @{ Icon = '📊'; Text = 'STATS'; Action = 'Stats' },
+    @{ Icon = '📋'; Text = 'LOGS'; Action = 'Logs' },
+    @{ Icon = '❓'; Text = 'HELP'; Action = 'Help' }
+)
+
+$xPos = 10
+foreach ($btnDef in $buttonDefs) {
+    $btn = New-Object System.Windows.Forms.Button
+    $btn.Text = "$($btnDef.Icon) $($btnDef.Text)"
+    $btn.Width = 85
+    $btn.Height = 35
+    $btn.Left = $xPos
+    $btn.Top = 8
+    $btn.FlatStyle = 'Flat'
+    $btn.FlatAppearance.BorderSize = 1
+    $btn.FlatAppearance.BorderColor = $ThemeColors['Primary']
+    $btn.BackColor = $ThemeColors['Primary']
+    $btn.ForeColor = [System.Drawing.Color]::Black
+    $btn.Font = New-Object System.Drawing.Font('Segoe UI', 8, [System.Drawing.FontStyle]::Bold)
+    $btn.Cursor = 'Hand'
+    $toolbarPanel.Controls.Add($btn)
+    $xPos += 90
+}
+
+$tabSettings.Controls.Add($toolbarPanel)
+
+# ========================================
+# EXPANDED CLEANUP CATEGORIES (9 items)
+# ========================================
 
 $tabControl.TabPages.Add($tabSettings)
 
